@@ -10,7 +10,7 @@ const ProfileUpdateForm = ({ initialData }) => {
     
   // }
   const [username, setUsername] = useState(initialData?.username || "");
-  const [email, setEmai] = useState(initialData?.email || "");
+  const [email, setEmail] = useState(initialData?.email || "");
   const [regdNo, setRegdNo] = useState(initialData?.regdNo || "");
   const [phoneNo, setPhoneNo] = useState(initialData?.phoneNo || "");
   const [dob, setDob] = useState(initialData?.dob || "");
@@ -154,7 +154,7 @@ const ProfileUpdateForm = ({ initialData }) => {
         <input
           type="text"
           value={username}
-          onChange={(e) => setRegdNo(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
           className="w-full px-4 py-2 border rounded"
         />
       </div>
@@ -163,7 +163,7 @@ const ProfileUpdateForm = ({ initialData }) => {
         <input
           type="text"
           value={email}
-          onChange={(e) => setRegdNo(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           className="w-full px-4 py-2 border rounded"
         />
       </div>
