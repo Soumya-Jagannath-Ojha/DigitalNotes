@@ -108,11 +108,10 @@ const SignIn = ({ onLogin, googleLogin, currUser, setCurrUser }) => {
               />
               <label
                 htmlFor="username"
-                className={`absolute left-10 transition-all duration-200 ${
-                  focusedInput === "username" || (nameRef.current && nameRef.current.value)
+                className={`absolute left-10 transition-all duration-200 ${focusedInput === "username" || (nameRef.current && nameRef.current.value)
                     ? "text-xs text-blue-600 top-[-0.5rem] bg-white px-1"
                     : "text-sm text-gray-600 top-[0.85rem]"
-                }`}
+                  }`}
               >
                 Email
               </label>
@@ -134,11 +133,10 @@ const SignIn = ({ onLogin, googleLogin, currUser, setCurrUser }) => {
               />
               <label
                 htmlFor="password"
-                className={`absolute left-10 transition-all duration-200 ${
-                  focusedInput === "password" || (passwordRef.current && passwordRef.current.value)
+                className={`absolute left-10 transition-all duration-200 ${focusedInput === "password" || (passwordRef.current && passwordRef.current.value)
                     ? "text-xs text-blue-600 top-[-0.5rem] bg-white px-1"
                     : "text-sm text-gray-600 top-[0.85rem]"
-                }`}
+                  }`}
               >
                 Password
               </label>
@@ -146,12 +144,21 @@ const SignIn = ({ onLogin, googleLogin, currUser, setCurrUser }) => {
           </div>
 
           <div className="flex flex-col gap-4 w-full">
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={() => navigate('/Forgetpass')}
+                className="text-sm text-blue-600 hover:text-blue-800 font-medium hover:underline"
+              >
+                Forgot Password?
+              </button>
+            </div>
+
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shadow-lg ${
-                isLoading ? 'opacity-75 cursor-not-allowed' : ''
-              }`}
+              className={`w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shadow-lg ${isLoading ? 'opacity-75 cursor-not-allowed' : ''
+                }`}
             >
               {isLoading ? <Loader /> : 'Sign In'}
             </button>
