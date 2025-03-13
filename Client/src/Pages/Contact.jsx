@@ -1,10 +1,36 @@
+
 import React from 'react';
+import { useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
+import { toast } from 'sonner';
 
 const Contact = () => {
   const position = [20.56273, 85.99068]; // Example coordinates (London)
+  const form = useRef();
+
+  // EmailJs
+  const sendEmail = (e) => {
+    e.preventDefault();
+    
+    emailjs
+      .sendForm(import.meta.env.VITE_SERVICE_ID, import.meta.env.VITE_TEMPLATE_ID, form.current, {
+        publicKey: import.meta.env.VITE_PUBLIC_KEY,
+      })
+      .then(
+        () => {
+          toast.success('Email is send sucessfuly!')
+          form.current.reset(); 
+        },
+        (error) => {
+          toast.error('FAILED to send email...', error.text)
+        },
+      );
+  };;
+
+
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-20 bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -12,7 +38,7 @@ const Contact = () => {
       <p className="text-center text-gray-600 mb-8">We'd love to hear from you. Please fill out this form or use our contact information below.</p>
       <div className="flex flex-col lg:flex-row gap-6 sm:gap-12">
         <div className="w-full lg:w-1/2">
-          <form className="space-y-4 bg-white shadow-md rounded-lg p-6">
+          <form ref={form} onSubmit={sendEmail} className="space-y-4 bg-white shadow-md rounded-lg p-6">
             <div>
               <label htmlFor="name" className="block mb-1 font-medium text-gray-700">Name</label>
               <input type="text" id="name" name="name" className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required />
