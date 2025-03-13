@@ -94,12 +94,12 @@ const Dashboard = () => {
     // </div>
 
 
-    <div className="flex flex-col md:flex-row min-h-[calc(100vh-64px)] bg-gray-100 mt-16">
+    <div className="flex flex-col md:flex-row min-h-[calc(100vh-64px)] mt-14">
       <button
-        className="md:hidden fixed top-20 left-4 z-20 p-2 rounded-md bg-gray-200 text-gray-700"
+        className="md:hidden fixed top-20 left-4 z-20 p-2 rounded-md bg-indigo-700"
         onClick={toggleSidebar}
       >
-        {sidebarOpen ? <FaTimes /> : <FaUser />}
+        {sidebarOpen ? <FaTimes className="text-white"/> : <FaUser className="text-cyan-300"/>}
       </button>
 
       <Sidebar sidebarOpen={sidebarOpen} />

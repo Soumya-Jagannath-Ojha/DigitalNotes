@@ -48,6 +48,10 @@ const Navbar = () => {
 
   }
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -60,7 +64,7 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-gray-800/70 backdrop-blur-md shadow-lg" : "bg-gray-800"
+        isScrolled ? "bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-700 backdrop-blur-md shadow-lg" : "bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-700"
       }`}
     >
       <div className="container mx-auto flex justify-between items-center p-4">
@@ -144,24 +148,27 @@ const Navbar = () => {
           
           <Link
             to="/"
-            className={`text-white block hover:bg-gray-700 px-3 py-2 rounded-md ${
-              location.pathname === "/" ? "bg-gray-700" : ""
+            onClick={closeMenu}
+            className={`text-white block hover:bg-indigo-700 px-3 py-2 rounded-md ${
+              location.pathname === "/" ? "bg-indigo-600" : ""
             }`}
           >
             Home
           </Link>
           <Link
             to="/about"
-            className={`text-white block hover:bg-gray-700 px-3 py-2 rounded-md ${
-              location.pathname === "/about" ? "bg-gray-700" : ""
+            onClick={closeMenu}
+            className={`text-white block hover:bg-indigo-700 px-3 py-2 rounded-md ${
+              location.pathname === "/about" ? "bg-indigo-600" : ""
             }`}
           >
             About
           </Link>
           <Link
             to="/contact"
-            className={`text-white block hover:bg-gray-700 px-3 py-2 rounded-md ${
-              location.pathname === "/contact" ? "bg-gray-700" : ""
+            onClick={closeMenu}
+            className={`text-white block hover:bg-indigo-700 px-3 py-2 rounded-md ${
+              location.pathname === "/contact" ? "bg-indigo-600" : ""
             }`}
           >
             Contact
@@ -169,8 +176,9 @@ const Navbar = () => {
           {currUser ? (
             <Link
               to="/dashboard"
-              className={`text-white block hover:bg-gray-700 px-3 py-2 rounded-md ${
-                location.pathname === "/dashboard" ? "bg-gray-700" : ""
+              onClick={closeMenu}
+              className={`text-white block hover:bg-indigo-700 px-3 py-2 rounded-md ${
+                location.pathname === "/dashboard" ? "bg-indigo-600" : ""
               }`}
             >
               Dashboard
@@ -178,8 +186,9 @@ const Navbar = () => {
           ) : (
             <Link
               to="/signin"
-              className={`text-white block hover:bg-gray-700 px-3 py-2 rounded-md ${
-                location.pathname === "/signin" ? "bg-gray-700" : ""
+              onClick={closeMenu}
+              className={`text-white block hover:bg-indigo-700 px-3 py-2 rounded-md ${
+                location.pathname === "/signin" ? "bg-indigo-600" : ""
               }`}
             >
               Signin

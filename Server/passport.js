@@ -24,7 +24,7 @@ passport.use(
             googleId: profile.id,
             username: profile.displayName,
             email: profile.emails[0].value,
-            //   avatar: profile.photos[0].value, // Store avatar URL if needed
+            //avatar: profile.photos[0].value, // Store avatar URL if needed
           });
 
           await user.save(); // Save the new user to MongoDB

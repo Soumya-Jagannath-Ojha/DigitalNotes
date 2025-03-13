@@ -242,7 +242,7 @@ const Profile = () => {
                 //   const sanitizedValue = value.replace(/\D/g, "").slice(0, 10); // Remove non-numeric and limit length
                 //   setPhoneNo(sanitizedValue);
                 // }}
-                type="number"
+                type="tel"
                 icon={
                   <FaPhone className="mr-2 text-blue-500 transform rotate-90" />
                 }
