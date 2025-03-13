@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="994083db-7c6e-490d-9059-292d8c40a83e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Client/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/Auth/SignIn.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Auth/SignIn.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/Pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Pages/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/Pages/NoteView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/Pages/NoteView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/functional/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/functional/Profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/functional/ProfileUpdateForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/functional/ProfileUpdateForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/routes/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/routes/user.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2oskNIIudhGMPJEoPQHrCzlL7YF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="994083db-7c6e-490d-9059-292d8c40a83e" name="Changes" comment="" />
+      <created>1731665631110</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1731665631110</updated>
+    </task>
+    <servers />
+  </component>
+</project>
