@@ -48,9 +48,11 @@ const NoteView = ({ noteItem }) => {
   const [previewUrl, setPreviewUrl] = useState(null);
 
   const handlePreview = (noteUrl) => {
+    const fieldId = import.meta.env.VITE_FIELDID;
+    const previewUrl =`https://drive.google.com/file/d/${fileId}/preview`;
     // Open pdf in a new tab
     // window.open(noteUrl, "_blank");
-    setPreviewUrl(noteUrl);
+    setPreviewUrl(previewUrl);
   };
   const handleClosePreview = () => {
     setPreviewUrl(null);
@@ -159,7 +161,7 @@ const NoteView = ({ noteItem }) => {
 
       <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4 w-full max-w-sm">
         <button
-          onClick={() => handlePreview(note.noteUrl.url)}
+          onClick={() => handlePreview()}
           className="flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full sm:w-auto text-sm sm:text-base"
         >
           <FaEye className="mr-2" /> Preview
