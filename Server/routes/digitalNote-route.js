@@ -68,13 +68,19 @@ noteRouter.post("/signin",
   });
 
   noteRouter.post("/note/:id/reviews", async (req, res) => {
-    const { comment, rating, author } = req.body;
+    const { comment, rating, author,createdAt } = req.body;
+    
     if (!author) {
       return res.status(400).json({ message: "User is not logged in." });
     }
   
     try {
-      let note = await Note.findById(req.params.id);
+      // let note = await Note.findById(req.params.id);
+      const note = await Note.findById(req.params.id).populate({
+        path: "reviews",
+        options: { sort: { createdAt: -1 } }, // Sort by date descending (newest first)
+      });
+
       // let newReview = new Review(req.body.)
       // console.log(comment,rating,author);
   
@@ -82,6 +88,7 @@ noteRouter.post("/signin",
         comment,
         rating,
         author,
+        createdAt
       });
       // console.log(newReview);
   
@@ -92,7 +99,8 @@ noteRouter.post("/signin",
   
       res.status(201).json(newReview);
     } catch (error) {
-      res.status(500).json({ message: "Error creating review", error });
+      res.status(500).json({ message: "Please add rating, Before sending the review !", error });
+      // res.status(500).json({ message: "Error creating review", error });
     }
   });
 

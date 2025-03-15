@@ -26,9 +26,19 @@ const ReviewList = ({ noteId }) => {
       const response = await axios.get(
         `http://localhost:8080/api/notes/note/${noteId}/reviews`
       );
-      const reviews = response.data;
+      // const reviews = response.data;
+      const reviews = response.data.reviews;
 
-      setReviewList(reviews.reviews);
+      // // Sorting using the `-1` method
+      // const sortedReviews = [...reviews].sort((a, b) =>
+      //   new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1
+      // );
+
+
+      const sortedReviews = [...reviews].sort((a, b) => 
+        new Date(b.createdAt) - new Date(a.createdAt) // Descending order (newest first)
+      );
+      setReviewList([...sortedReviews]);
     } catch (error) {
       console.error("Error fetching reviews:", error);
     }

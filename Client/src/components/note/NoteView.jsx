@@ -60,8 +60,6 @@ const NoteView = ({ noteItem }) => {
     useNavigate("");
   };
 
- 
-
   const handleNewReviewSubmit = async (e) => {
     e.preventDefault();
 
@@ -69,11 +67,13 @@ const NoteView = ({ noteItem }) => {
       toast.error("User not logged in. Please sign in first.");
       return;
     }
+    // console.log(newReview);
 
     const reviewData = {
       comment: reviewComment,
       rating: newReview.rating,
       author: currUser._id, // Ensure `_id` is accessible
+      createdAt: new Date().toISOString(), // Add current timestamp
     };
 
     try {
@@ -92,13 +92,16 @@ const NoteView = ({ noteItem }) => {
         toast.success("Review submitted successfully!");
         setReviewComment(""); // Reset textarea
         setNewReview({ comment: "", rating: 0 }); // Reset form
-        // console.log("new review",result);
-        // setReviewList(result);
-        setReviewList((prevReviews) => [result, ...prevReviews]);
+ 
         // setReviewList((prevReviews) =>
-        //   [result, ...prevReviews].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        //   [...prevReviews, result].sort(
+        //     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        //   )
         // );
-        // console.log(reviewList);
+        setReviewList((prevReviews) =>
+          [result, ...prevReviews].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        );
+
 
         fetchListOfReviews(noteId); // Reload reviews after submission
       } else {
@@ -115,7 +118,7 @@ const NoteView = ({ noteItem }) => {
       const response = await axios.get(
         `http://localhost:8080/api/notes/note/${noteId}/reviews`
       );
-      const reviews = response.data;
+      const reviews = response.data.reviews;
       // console.log(reviews.reviews);
 
       // Update reviews in the state
@@ -123,7 +126,11 @@ const NoteView = ({ noteItem }) => {
       //   ...prevNote,
       //   reviews: reviews, // Replace the current reviews with the fetched ones
       // }));
-      setReviewList(reviews.reviews);
+      const sortedReviews = [...reviews].sort((a, b) => 
+        new Date(b.createdAt) - new Date(a.createdAt) // Descending order (newest first)
+      );
+
+      setReviewList(sortedReviews);
     } catch (error) {
       console.error("Error fetching reviews:", error);
     }
