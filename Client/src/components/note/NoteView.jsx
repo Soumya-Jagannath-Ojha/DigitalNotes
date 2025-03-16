@@ -36,16 +36,13 @@ const NoteView = ({ noteItem }) => {
     comment: "", // Default comment
   });
 
-  const [starKey, setStarKey] = useState(0);
-  const [reviewRating, setReviewRating] = useState(5);
-  const [selectedNoteId, setSelectedNoteId] = useState(null); // This could come from props or other logic
-
   const fileId = import.meta.env.VITE_FIELDID;
   const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
 
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handlePreview = (noteUrl) => {
     const fieldId = import.meta.env.VITE_FIELDID;
@@ -146,6 +143,12 @@ const NoteView = ({ noteItem }) => {
     fetchListOfReviews(noteId);
   }, []);
 
+  useEffect(() => {
+    if (previewUrl) {
+      setIsLoading(true);
+    }
+  }, [previewUrl]);
+
   return (
     <div className="flex flex-col items-center mt-20">
       <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center w-full max-w-xs h-48 sm:h-56 md:h-64 lg:h-72 mb-6 relative">
@@ -195,11 +198,9 @@ const NoteView = ({ noteItem }) => {
                 <FaTimes />
               </button>
             </div>
-            <div className="flex flex-col items-center justify-center h-64 sm:h-96 bg-gray-100 rounded">
-              {/* <FaFilePdf className="text-6xl sm:text-8xl text-red-500 mb-4" /> */}
-              {/* <p className="text-gray-600 text-sm sm:text-base">
-                  PDF Preview Placeholder
-                </p> */}
+            {/* <div className="flex flex-col items-center justify-center h-64 sm:h-96 bg-gray-100 rounded">
+              
+                
               <iframe
                 src={previewUrl}
                 title="Note Preview"
@@ -207,7 +208,21 @@ const NoteView = ({ noteItem }) => {
                 height="100%"
                 className="rounded border"
               />
-            </div>
+            </div> */}
+
+            <div className="flex flex-col items-center justify-center h-64 sm:h-96 bg-gray-100 rounded">
+      {isLoading && (
+        <p className="text-gray-600 text-sm sm:text-base">Loading...</p>
+      )}
+      <iframe
+        src={previewUrl}
+        title="Note Preview"
+        width="100%"
+        height="100%"
+        className="rounded border"
+        onLoad={() => setIsLoading(false)}
+      />
+    </div>
           </div>
         </div>
       )}
