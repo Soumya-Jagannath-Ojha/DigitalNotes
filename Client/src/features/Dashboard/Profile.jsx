@@ -15,8 +15,10 @@ import {
 import { useState } from "react";
 import { toast } from "sonner";
 import { GlobalContext } from "../../context/GlobalState";
-// import ProfileUpdateForm from "./ProfileUpdateForm";
-import ProfileUpdateForm from "../../components/profile/ProfileUpdateForm";
+
+
+import ProfileDisplay from "../../components/profile/ProfileDisplay";
+import ProfileUpdate from "../../components/profile/ProfileUpdate";
 
 const Profile = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -29,30 +31,71 @@ const Profile = () => {
     setShowImportantMessage,
   } = useContext(GlobalContext);
 
-  const [username, setUsername] = useState(currUser?.username || "");
-  const [email, setEmail] = useState(currUser?.email || "");
-  const [regdNo, setRegdNo] = useState(currUser?.regdNo || "");
-  const [phoneNo, setPhoneNo] = useState(currUser?.phoneNo || "");
-  const [dob, setDob] = useState(currUser?.dob || "");
-  const [gender, setGender] = useState(currUser?.gender || "");
-  const [branch, setBranch] = useState(currUser?.branch || "");
-  const [sem, setSem] = useState(currUser?.sem || "");
-  const [year, setYear] = useState(currUser?.year || ""); // New state for year
+
   // const [showImportantMessage, setShowImportantMessage] = useState(true);
   const [tempRegdNo, setTempRegdNo] = useState(currUser?.regdNo || ""); // Temporary state for editing
 
-  const handleUpdateProfile = async (e) => {
-    e.preventDefault();
-    const profileData = {
-      regdNo: regdNo,
-      phoneNo: phoneNo,
-      dob,
-      gender,
-      branch,
-      year,
-      sem,
-    };
 
+
+ const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [regdNo, setRegdNo] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
+  const [branch, setBranch] = useState("");
+  const [sem, setSem] = useState("");
+  const [year, setYear] = useState(""); // New state for year
+
+
+  // const handleUpdateProfile = async (e) => {
+  //   e.preventDefault();
+  //   const profileData = {
+  //     regdNo: regdNo,
+  //     phoneNo: phoneNo,
+  //     dob,
+  //     gender,
+  //     branch,
+  //     year,
+  //     sem,
+  //   };
+
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:8080/dashboard/${currUser._id}/profile`,
+  //       {
+  //         method: "PUT",
+  //         headers: { "Content-Type": "application/json" },
+  //         credentials: "include",
+  //         body: JSON.stringify({ ...profileData, userId: currUser._id }),
+  //       }
+  //     );
+
+  //     if (response.ok) {
+  //       const responseData = await response.json();
+  //       const updatedUser = responseData.user;
+  //       // console.log(updatedUser);
+
+  //       setCurrUser(updatedUser);
+  //       toast.success("Profile Update successfully!");
+
+  //       // console.log(response.);
+  //     } else {
+  //       const errorData = await response.json();
+  //       toast.error(errorData.message || "Failed to update profile");
+  //     }
+  //   } catch (error) {
+  //     toast.error("An error occurred while updating the profile.");
+  //   }
+  //   setIsEditing(false);
+  //   const allFieldsFilled = regdNo && phoneNo && dob && gender && branch && sem;
+  //   // console.log(allFieldsFilled);
+
+  //   setShowImportantMessage(!allFieldsFilled);
+  // };
+
+
+  const handleUpdateProfile = async (updatedProfile) => {
     try {
       const response = await fetch(
         `http://localhost:8080/dashboard/${currUser._id}/profile`,
@@ -60,19 +103,15 @@ const Profile = () => {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
-          body: JSON.stringify({ ...profileData, userId: currUser._id }),
+          body: JSON.stringify({ ...updatedProfile, userId: currUser._id }),
         }
       );
 
       if (response.ok) {
         const responseData = await response.json();
-        const updatedUser = responseData.user;
-        // console.log(updatedUser);
-
-        setCurrUser(updatedUser);
-        toast.success("Profile Update successfully!");
-
-        // console.log(response.);
+        setCurrUser(responseData.user);
+        toast.success("Profile Updated Successfully!");
+        setIsEditing(false);
       } else {
         const errorData = await response.json();
         toast.error(errorData.message || "Failed to update profile");
@@ -80,12 +119,8 @@ const Profile = () => {
     } catch (error) {
       toast.error("An error occurred while updating the profile.");
     }
-    setIsEditing(false);
-    const allFieldsFilled = regdNo && phoneNo && dob && gender && branch && sem;
-    // console.log(allFieldsFilled);
-
-    setShowImportantMessage(!allFieldsFilled);
   };
+
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -118,62 +153,6 @@ const Profile = () => {
     return new Date(`${year}-${month}-${day}`).toISOString();
   };
 
-  const ProfileField = ({
-    label,
-    value,
-    isEditing,
-    onChange,
-    type,
-    options,
-    icon,
-  }) => {
-    return (
-      <div className="col-span-1 sm:col-span-2 md:col-span-1 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
-        <div className="font-semibold text-gray-700 flex items-center">
-          {icon}
-          <span className="inline">{label}</span>
-        </div>
-        {isEditing ? (
-          type === "select" ? (
-            <select
-              value={value}
-              onChange={(e) => onChange(e.target.value)}
-              className="border rounded px-2 py-1 w-full sm:w-auto"
-            >
-              <option value="">Select {label}</option>
-              {options.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          ) : (
-            <input
-              type={type}
-              value={value}
-              onChange={(e) => onChange(e.target.value)}
-              className="border rounded px-2 py-1 w-full sm:w-auto"
-            />
-          )
-        ) : (
-          <div className="text-gray-600">{value || "Not set"}</div>
-        )}
-      </div>
-    );
-  };
-  // useEffect(() => {
-  //   if (currUser) {
-  //     setUsername(currUser.username || "");
-  //     setEmail(currUser.email || "");
-  //     setRegdNo(currUser.regdNo || "");
-  //     setPhoneNo(currUser.phoneNo || "");
-  //     setDob(currUser.dob || "");
-  //     setGender(currUser.gender || "");
-  //     setBranch(currUser.branch || "");
-  //     setSem(currUser.sem || "");
-  //     setYear(currUser.year || "");
-  //   }
-  // }, [currUser]); // Re-run whenever `currUser` changes
 
   useEffect(() => {
     const allFieldsFilled =
@@ -185,11 +164,14 @@ const Profile = () => {
       currUser?.sem;
     setShowImportantMessage(!allFieldsFilled);
   }, [currUser, setShowImportantMessage]);
+
+
+
   return (
     <>
       {/* Profile section */}
-      <div className="flex-1 p-8 ">
-        {/* {activeSection === "profile" && ( */}
+      {/* <div className="flex-1 p-8 ">
+
 
         <h1 className="text-2xl font-bold mb-2 text-center">Profile Details</h1>
         {showImportantMessage && (
@@ -236,12 +218,12 @@ const Profile = () => {
                 label="Phone No."
                 value={phoneNo}
                 isEditing={isEditing}
-                onChange={setPhoneNo}
-                // onChange={(value) => {
-                //   // Allow only numeric input and limit to 10 digits
-                //   const sanitizedValue = value.replace(/\D/g, "").slice(0, 10); // Remove non-numeric and limit length
-                //   setPhoneNo(sanitizedValue);
-                // }}
+                // onChange={setPhoneNo}
+                onChange={(value) => {
+                  // Allow only numeric input and limit to 10 digits
+                  const sanitizedValue = value.replace(/\D/g, "").slice(0, 10); // Remove non-numeric and limit length
+                  setPhoneNo(sanitizedValue);
+                }}
                 type="tel"
                 icon={
                   <FaPhone className="mr-2 text-blue-500 transform rotate-90" />
@@ -325,7 +307,7 @@ const Profile = () => {
           </p>
         )}
 
-        {/* <form
+         <form
           onSubmit={handleUpdateProfile}
           className="max-w-lg mx-auto p-8 bg-white rounded shadow"
         >
@@ -404,8 +386,28 @@ const Profile = () => {
           >
             Save Profile
           </button>
-        </form> */}
-      </div>
+        </form> 
+      </div> */}
+
+
+
+
+
+      <div className="p-8">
+      {/* <h1 className="text-2xl font-bold mb-4 text-center">Profile Details</h1> */}
+    
+      {showImportantMessage && (
+        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 rounded">
+          <p>Please complete all profile details to access notes specific to your branch and semester.</p>
+        </div>
+      )}
+
+      {!isEditing ? (
+        <ProfileDisplay user={currUser} onEdit={() => setIsEditing(true)} />
+      ) : (
+        <ProfileUpdate user={currUser} onUpdate={handleUpdateProfile} onCancel={() => setIsEditing(false)} />
+      )}
+    </div>
     </>
   );
 };
